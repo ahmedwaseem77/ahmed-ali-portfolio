@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmed Ali — DaVinci Resolve Video Editor & Colorist</title>
+  <meta name="description" content="Portfolio of Ahmed Ali, professional DaVinci Resolve Video Editor and Colorist specializing in high-retention reels, luxury real estate showcases, and commercial post-production.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            black: '#000000',
+            surface: {
+              DEFAULT: '#0a0a0a',
+              subtle: '#111111',
+              muted: '#171717',
+              border: 'rgba(255, 255, 255, 0.08)',
+              hover: 'rgba(255, 255, 255, 0.12)'
+            },
+            accent: {
+              davinci: '#e84142',
+              blue: '#0071e3',
+              gold: '#ffd60a'
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+            display: ['-apple-system', 'BlinkMacSystemFont', '"Plus Jakarta Sans"', 'sans-serif']
+          },
+          boxShadow: {
+            'apple-glow': '0 0 50px -10px rgba(255, 255, 255, 0.08)',
+            'apple-glow-strong': '0 0 80px -15px rgba(255, 255, 255, 0.15)',
+            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Custom Apple-inspired styling */
+    body {
+      background-color: #000000;
+      color: #f5f5f7;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .frosted-glass {
+      background: rgba(10, 10, 10, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .frosted-nav {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .glow-bg {
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
+    }
+
+    /* Subdued custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #262626;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #404040;
+    }
+
+    /* Equalizer animation for playing badge */
+    @keyframes eq1 { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+    @keyframes eq2 { 0%, 100% { height: 12px; } 50% { height: 6px; } }
+    @keyframes eq3 { 0%, 100% { height: 6px; } 50% { height: 16px; } }
+    .eq-bar-1 { animation: eq1 0.8s ease-in-out infinite; }
+    .eq-bar-2 { animation: eq2 0.7s ease-in-out infinite; }
+    .eq-bar-3 { animation: eq3 0.9s ease-in-out infinite; }
+  </style>
+</head>
+<body class="bg-black text-[#f5f5f7] min-h-screen selection:bg-white selection:text-black font-sans antialiased">
+
+  <!-- GOOGLE DRIVE PREVIEW MODAL (Loads iframe on demand only to prevent lag) -->
+  <div id="driveModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-2xl p-4 sm:p-6 transition-all duration-300">
+    <div class="relative w-full max-w-4xl bg-neutral-950 border border-white/20 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+      <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/60">
+        <div class="flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+          <span id="modalTitle" class="text-xs sm:text-sm font-semibold text-white ml-2">Google Drive Stream Preview</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a id="modalExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="text-xs text-neutral-400 hover:text-white flex items-center gap-1.5 transition-colors">
+            <span>Open in Drive</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+          <button id="closeModalBtn" type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="relative w-full aspect-[9/16] sm:aspect-video bg-black flex items-center justify-center">
+        <iframe id="modalIframe" src="" class="w-full h-full border-0" allow="autoplay; fullscreen" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP FROSTED GLASS NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-40 frosted-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Brand / Identity -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-full bg-neutral-900 border border-white/20 flex items-center justify-center font-bold text-sm tracking-wider text-white group-hover:border-white transition-colors duration-300">
+            AA
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold tracking-tight text-white group-hover:text-neutral-200 transition-colors">Ahmed Ali</span>
+            <span class="text-[10px] tracking-wider uppercase text-neutral-400 font-medium">DaVinci Resolve Studio</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="index.html" class="px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full bg-white/10 text-white border border-white/10 transition-colors">
+            Portfolio
+          </a>
+          <a href="services.html" class="px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
+            Services & Workflow
+          </a>
+          <a href="contact.html" class="px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
+            Contact & Inquiries
+          </a>
+        </nav>
+
+        <!-- Right Quick CTAs -->
+        <div class="hidden sm:flex items-center gap-3">
+          <!-- WhatsApp Quick Link -->
+          <a href="https://wa.me/923476415127" target="_blank" rel="noopener noreferrer" 
+             class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 hover:border-emerald-500/50 hover:bg-emerald-950/60 transition-all duration-200">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>WhatsApp</span>
+          </a>
+
+          <!-- Direct CTA -->
+          <a href="contact.html" 
+             class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-semibold text-black bg-white hover:bg-neutral-200 transition-all duration-200 shadow-sm hover:scale-[1.02]">
+            Book a Project
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" type="button" aria-label="Toggle Navigation Menu" class="md:hidden p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-6 frosted-glass border-b border-white/10 space-y-3">
+      <a href="index.html" class="block px-3 py-2 rounded-lg text-sm font-medium bg-white/10 text-white">Portfolio</a>
+      <a href="services.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5">Services & Workflow</a>
+      <a href="contact.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5">Contact & Inquiries</a>
+      
+      <div class="pt-3 border-t border-white/10 flex flex-col gap-2">
+        <a href="https://wa.me/923476415127" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-500/20">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Direct WhatsApp Chat
+        </a>
+        <a href="contact.html" class="flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-semibold text-black bg-white">
+          Book a Project
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="pt-24 sm:pt-28">
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden pt-8 pb-20 sm:pt-14 sm:pb-28">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 glow-bg pointer-events-none -z-10"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Left Column: Copy & CTAs -->
+          <div class="lg:col-span-7 flex flex-col items-start text-left">
+            
+            <!-- Availability Badge -->
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full frosted-glass mb-6">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span class="text-xs font-medium tracking-wide text-neutral-300">Available for Commercial & Remote Projects</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-6 hero-gradient-text">
+              Ahmed Ali — <br class="hidden sm:inline">DaVinci Resolve Video Editor
+            </h1>
+
+            <!-- Subheading / Value Proposition -->
+            <p class="text-lg sm:text-xl text-neutral-400 max-w-2xl font-normal leading-relaxed mb-8">
+              Transforming raw footage into high-retention stories. Specializing in color grading, dynamic pacing, and cinematic post-production for brands, creators, and luxury real-estates Videos.
+            </p>
+
+            <!-- Direct CTAs -->
+            <div class="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+              <!-- Primary: View Work -->
+              <a href="#portfolio-grid" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-black bg-white hover:bg-neutral-200 transition-all duration-200 shadow-apple-glow hover:scale-[1.02]">
+                <span>Explore Portfolio</span>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+              </a>
+
+              <!-- Secondary: WhatsApp Direct -->
+              <a href="https://wa.me/923476415127" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white frosted-glass hover:bg-white/10 hover:border-white/20 transition-all duration-200">
+                <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                <span>WhatsApp Ahmed</span>
+              </a>
+
+              <!-- Secondary: Email -->
+              <a href="mailto:iahmedwaseem7@gmail.com" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-sm font-medium text-neutral-300 frosted-glass hover:text-white hover:bg-white/10 transition-all duration-200">
+                <svg class="w-4 h-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                <span>iahmedwaseem7@gmail.com</span>
+              </a>
+            </div>
+
+            <!-- Tech Stack Pills -->
+            <div class="mt-10 pt-8 border-t border-white/10 w-full flex flex-wrap items-center gap-3">
+              <span class="text-xs uppercase tracking-wider text-neutral-400 font-medium mr-2">Ecosystem:</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-neutral-900 border border-white/10 text-neutral-300">
+                DaVinci Resolve Studio 21.1
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-neutral-900 border border-white/10 text-neutral-300">
+                DWG & Rec.709 Color
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-neutral-900 border border-white/10 text-neutral-300">
+                Fairlight Audio Mixing
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-neutral-900 border border-white/10 text-neutral-300">
+                1080-4K Video Renders
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Profile Showcase Card -->
+          <div class="lg:col-span-5 flex justify-center lg:justify-end">
+            <div class="relative w-full max-w-sm sm:max-w-md group">
+              <div class="absolute -inset-1 rounded-3xl bg-gradient-to-b from-white/10 to-transparent blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+              
+              <div class="relative rounded-3xl overflow-hidden border border-white/15 bg-neutral-950 shadow-2xl">
+                <!-- Profile Image -->
+                <div class="aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-neutral-900 relative">
+                  <img src="assets/ahmed-ali.jpg" 
+                       alt="Ahmed Ali — Professional DaVinci Resolve Video Editor" 
+                       class="w-full h-full object-cover object-center filter contrast-[1.05] brightness-[0.98] transition-transform duration-700 ease-out group-hover:scale-105"
+                       loading="eager">
+                  
+                  <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+                  
+                  <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl frosted-glass border border-white/10">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <div class="text-sm font-semibold text-white">Ahmed Ali</div>
+                        <div class="text-xs text-neutral-400">Post-Production & Colorist</div>
+                      </div>
+                      <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white border border-white/20">
+                        4K
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card Metadata Footer -->
+                <div class="p-4 bg-neutral-950/90 border-t border-white/10 flex items-center justify-between text-xs text-neutral-400">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Turnaround: 24 - 48 Hours</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-neutral-300">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <span>99.9% Client Satisfaction</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- METRICS STRIP -->
+    <section class="border-y border-white/10 bg-neutral-950/60 py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">DaVinci</span>
+            <span class="text-xs uppercase tracking-wider text-neutral-400 mt-1 font-medium">Native Color Pipeline</span>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">100%</span>
+            <span class="text-xs uppercase tracking-wider text-neutral-400 mt-1 font-medium">Sound Design & Grading</span>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">4K / HDR</span>
+            <span class="text-xs uppercase tracking-wider text-neutral-400 mt-1 font-medium">Master Delivery Spec</span>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">&lt; 48h</span>
+            <span class="text-xs uppercase tracking-wider text-neutral-400 mt-1 font-medium">Short-Form Turnaround</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO GRID SECTION (2-COLUMN GRID WITH INSTANT HOVER & TOUCH AUTOPLAY) -->
+    <section id="portfolio-grid" class="py-24 sm:py-32 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase text-neutral-400 bg-neutral-900 border border-white/10 mb-3">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Interactive Hover Preview
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+              Featured Video Projects
+            </h2>
+            <p class="text-neutral-400 text-base sm:text-lg mt-3">
+              Hover on any project below to preview in 60fps real-time. On mobile, videos auto-play seamlessly as you scroll into view.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-neutral-400 bg-neutral-900/80 border border-white/10">
+              <svg class="w-3.5 h-3.5 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+              </svg>
+              <span>Hover cursor to play</span>
+            </div>
+            <a href="services.html" class="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-300 hover:text-white transition-colors group">
+              <span>View Services & Workflow</span>
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2-COLUMN RESPONSIVE VIDEO GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+
+          <!-- VIDEO ITEM 1 -->
+          <article class="portfolio-card group rounded-3xl bg-neutral-950 border border-white/10 hover:border-white/30 overflow-hidden transition-all duration-300 shadow-2xl flex flex-col cursor-pointer"
+                   data-title="Real Estate Showcase #01 — Cinematic Property Reel"
+                   data-drive-url="https://drive.google.com/file/d/1LS2Hw5HdC3Dha3DIHkLnfBlogI9SAL2u/preview">
+            
+            <!-- Window Bar -->
+            <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/40">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                <span class="text-xs font-semibold text-neutral-200 tracking-wide ml-2">Showcase #01 — Real Estate Reel 1</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="preview-drive-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 border border-white/10 transition-colors" title="Open Google Drive Stream">
+                  Drive Stream
+                </button>
+                <a href="https://drive.google.com/file/d/1LS2Hw5HdC3Dha3DIHkLnfBlogI9SAL2u/preview" 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                   title="Open in new tab">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Video Player Container (Instant Hover Play + Mobile Center Autoplay) -->
+            <div class="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-black overflow-hidden flex items-center justify-center">
+              <video 
+                class="portfolio-video w-full h-full object-cover bg-black"
+                src="assets/videos/video1.mp4"
+                preload="metadata"
+                playsinline
+                muted
+                loop>
+              </video>
+
+              <!-- Live Equalizer / Playing Badge -->
+              <div class="play-indicator opacity-0 transition-opacity duration-300 absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full frosted-glass border border-white/15 pointer-events-none">
+                <div class="flex items-end gap-1 h-3.5">
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-1"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-2"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-3"></span>
+                </div>
+                <span class="text-[11px] font-semibold tracking-wide text-white">PLAYING</span>
+              </div>
+
+              <!-- Center Play Hint (Visible when idle) -->
+              <div class="idle-hint transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center bg-black/30 group-hover:opacity-0 pointer-events-none">
+                <div class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl transform group-hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <span class="mt-2 text-xs font-medium text-neutral-300 sm:hidden">Tap or Scroll to Play</span>
+                <span class="mt-2 text-xs font-medium text-neutral-400 hidden sm:block">Hover to Preview</span>
+              </div>
+
+              <!-- Audio Unmute Toggle -->
+              <button type="button" class="mute-btn absolute bottom-4 right-4 z-20 p-2.5 rounded-full frosted-glass border border-white/20 text-white hover:bg-white/20 transition-all shadow-lg" title="Toggle Audio">
+                <svg class="audio-muted-icon w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+                <svg class="audio-on-icon w-4 h-4 text-emerald-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card Info -->
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Real Estate</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Color Grading</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Drone Tour</span>
+                </div>
+                <h3 class="text-lg font-semibold text-white group-hover:text-neutral-200 transition-colors">
+                  Real Estate Showcase #01 — Cinematic Property Reel
+                </h3>
+                <p class="text-sm text-neutral-400 mt-2 leading-relaxed">
+                  Precision skin-tone isolation, contrast curve sculpting, and seamless architectural pacing engineered inside DaVinci Resolve Studio.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-neutral-400">
+                <span class="flex items-center gap-1.5 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Instant 60fps Playback
+                </span>
+                <span class="text-neutral-300">Rec.709 / ACES</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VIDEO ITEM 2 -->
+          <article class="portfolio-card group rounded-3xl bg-neutral-950 border border-white/10 hover:border-white/30 overflow-hidden transition-all duration-300 shadow-2xl flex flex-col cursor-pointer"
+                   data-title="Real Estate Showcase #02 — Architectural Flow"
+                   data-drive-url="https://drive.google.com/file/d/1s8dtd46ICwR4SDNWv3Cu_RRRZc-ei6zs/preview">
+            
+            <!-- Window Bar -->
+            <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/40">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                <span class="text-xs font-semibold text-neutral-200 tracking-wide ml-2">Showcase #02 — Real Estate Reel 2</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="preview-drive-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 border border-white/10 transition-colors" title="Open Google Drive Stream">
+                  Drive Stream
+                </button>
+                <a href="https://drive.google.com/file/d/1s8dtd46ICwR4SDNWv3Cu_RRRZc-ei6zs/preview" 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                   title="Open in new tab">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Video Player Container -->
+            <div class="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-black overflow-hidden flex items-center justify-center">
+              <video 
+                class="portfolio-video w-full h-full object-cover bg-black"
+                src="assets/videos/video2.mp4"
+                preload="metadata"
+                playsinline
+                muted
+                loop>
+              </video>
+
+              <div class="play-indicator opacity-0 transition-opacity duration-300 absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full frosted-glass border border-white/15 pointer-events-none">
+                <div class="flex items-end gap-1 h-3.5">
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-1"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-2"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-3"></span>
+                </div>
+                <span class="text-[11px] font-semibold tracking-wide text-white">PLAYING</span>
+              </div>
+
+              <div class="idle-hint transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center bg-black/30 group-hover:opacity-0 pointer-events-none">
+                <div class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl transform group-hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <span class="mt-2 text-xs font-medium text-neutral-300 sm:hidden">Tap or Scroll to Play</span>
+                <span class="mt-2 text-xs font-medium text-neutral-400 hidden sm:block">Hover to Preview</span>
+              </div>
+
+              <button type="button" class="mute-btn absolute bottom-4 right-4 z-20 p-2.5 rounded-full frosted-glass border border-white/20 text-white hover:bg-white/20 transition-all shadow-lg" title="Toggle Audio">
+                <svg class="audio-muted-icon w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+                <svg class="audio-on-icon w-4 h-4 text-emerald-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card Info -->
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Speed Ramps</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Short-Form</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Fairlight Mix</span>
+                </div>
+                <h3 class="text-lg font-semibold text-white group-hover:text-neutral-200 transition-colors">
+                  Real Estate Showcase #02 — Speed Ramps & Transitions
+                </h3>
+                <p class="text-sm text-neutral-400 mt-2 leading-relaxed">
+                  Fast-paced visual rhythm calibrated for maximum watch time, retention spikes, and auditory punch across social reels.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-neutral-400">
+                <span class="flex items-center gap-1.5 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Instant 60fps Playback
+                </span>
+                <span class="text-neutral-300">Pacing: Dynamic Cuts</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VIDEO ITEM 3 -->
+          <article class="portfolio-card group rounded-3xl bg-neutral-950 border border-white/10 hover:border-white/30 overflow-hidden transition-all duration-300 shadow-2xl flex flex-col cursor-pointer"
+                   data-title="Real Estate Showcase #03 — Interior Light & Ambiance"
+                   data-drive-url="https://drive.google.com/file/d/1rn55qrigkM0s7jbU08780zf8XYXwFt3C/preview">
+            
+            <!-- Window Bar -->
+            <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/40">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                <span class="text-xs font-semibold text-neutral-200 tracking-wide ml-2">Showcase #03 — Real Estate Reel 3</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="preview-drive-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 border border-white/10 transition-colors" title="Open Google Drive Stream">
+                  Drive Stream
+                </button>
+                <a href="https://drive.google.com/file/d/1rn55qrigkM0s7jbU08780zf8XYXwFt3C/preview" 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                   title="Open in new tab">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Video Player Container -->
+            <div class="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-black overflow-hidden flex items-center justify-center">
+              <video 
+                class="portfolio-video w-full h-full object-cover bg-black"
+                src="assets/videos/video3.mp4"
+                preload="metadata"
+                playsinline
+                muted
+                loop>
+              </video>
+
+              <div class="play-indicator opacity-0 transition-opacity duration-300 absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full frosted-glass border border-white/15 pointer-events-none">
+                <div class="flex items-end gap-1 h-3.5">
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-1"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-2"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-3"></span>
+                </div>
+                <span class="text-[11px] font-semibold tracking-wide text-white">PLAYING</span>
+              </div>
+
+              <div class="idle-hint transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center bg-black/30 group-hover:opacity-0 pointer-events-none">
+                <div class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl transform group-hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <span class="mt-2 text-xs font-medium text-neutral-300 sm:hidden">Tap or Scroll to Play</span>
+                <span class="mt-2 text-xs font-medium text-neutral-400 hidden sm:block">Hover to Preview</span>
+              </div>
+
+              <button type="button" class="mute-btn absolute bottom-4 right-4 z-20 p-2.5 rounded-full frosted-glass border border-white/20 text-white hover:bg-white/20 transition-all shadow-lg" title="Toggle Audio">
+                <svg class="audio-muted-icon w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+                <svg class="audio-on-icon w-4 h-4 text-emerald-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card Info -->
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Architecture</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Window Pull</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Natural Light</span>
+                </div>
+                <h3 class="text-lg font-semibold text-white group-hover:text-neutral-200 transition-colors">
+                  Real Estate Showcase #03 — Interior Lighting & Stabilization
+                </h3>
+                <p class="text-sm text-neutral-400 mt-2 leading-relaxed">
+                  Smooth spatial transitions, window pull exposure balancing, and drone speed ramps tailored for luxury developers and realtors.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-neutral-400">
+                <span class="flex items-center gap-1.5 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Instant 60fps Playback
+                </span>
+                <span class="text-neutral-300">DaVinci Neural Engine</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VIDEO ITEM 4 -->
+          <article class="portfolio-card group rounded-3xl bg-neutral-950 border border-white/10 hover:border-white/30 overflow-hidden transition-all duration-300 shadow-2xl flex flex-col cursor-pointer"
+                   data-title="Commercial Showcase #04 — Dynamic Visa Reel"
+                   data-drive-url="https://drive.google.com/file/d/14VzmFd-X6ImV0SxC67CHizbuKr8ayZTr/preview">
+            
+            <!-- Window Bar -->
+            <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/40">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                <span class="text-xs font-semibold text-neutral-200 tracking-wide ml-2">Showcase #04 — Commercial Visa Reel</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="preview-drive-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 border border-white/10 transition-colors" title="Open Google Drive Stream">
+                  Drive Stream
+                </button>
+                <a href="https://drive.google.com/file/d/14VzmFd-X6ImV0SxC67CHizbuKr8ayZTr/preview" 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                   title="Open in new tab">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Video Player Container -->
+            <div class="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-black overflow-hidden flex items-center justify-center">
+              <video 
+                class="portfolio-video w-full h-full object-cover bg-black"
+                src="assets/videos/video4.mp4"
+                preload="metadata"
+                playsinline
+                muted
+                loop>
+              </video>
+
+              <div class="play-indicator opacity-0 transition-opacity duration-300 absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full frosted-glass border border-white/15 pointer-events-none">
+                <div class="flex items-end gap-1 h-3.5">
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-1"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-2"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-3"></span>
+                </div>
+                <span class="text-[11px] font-semibold tracking-wide text-white">PLAYING</span>
+              </div>
+
+              <div class="idle-hint transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center bg-black/30 group-hover:opacity-0 pointer-events-none">
+                <div class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl transform group-hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <span class="mt-2 text-xs font-medium text-neutral-300 sm:hidden">Tap or Scroll to Play</span>
+                <span class="mt-2 text-xs font-medium text-neutral-400 hidden sm:block">Hover to Preview</span>
+              </div>
+
+              <button type="button" class="mute-btn absolute bottom-4 right-4 z-20 p-2.5 rounded-full frosted-glass border border-white/20 text-white hover:bg-white/20 transition-all shadow-lg" title="Toggle Audio">
+                <svg class="audio-muted-icon w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+                <svg class="audio-on-icon w-4 h-4 text-emerald-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card Info -->
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Commercial</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Kinetic Captions</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Sound FX</span>
+                </div>
+                <h3 class="text-lg font-semibold text-white group-hover:text-neutral-200 transition-colors">
+                  Commercial Showcase #04 — Kinetic Brand Storytelling
+                </h3>
+                <p class="text-sm text-neutral-400 mt-2 leading-relaxed">
+                  Meticulous rhythmic editing synced with musical beats, punchy transitions, and refined brand palette conformity.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-neutral-400">
+                <span class="flex items-center gap-1.5 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Instant 60fps Playback
+                </span>
+                <span class="text-neutral-300">Fairlight Audio EQ</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VIDEO ITEM 5 -->
+          <article class="portfolio-card group rounded-3xl bg-neutral-950 border border-white/10 hover:border-white/30 overflow-hidden transition-all duration-300 shadow-2xl flex flex-col cursor-pointer"
+                   data-title="Real Estate Showcase #05 — Villa Exterior Tour"
+                   data-drive-url="https://drive.google.com/file/d/1E59n1klcnsbxOVnRdHDBUZ0ytYzW2hh5/preview">
+            
+            <!-- Window Bar -->
+            <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/40">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                <span class="text-xs font-semibold text-neutral-200 tracking-wide ml-2">Showcase #05 — Real Estate v1</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="preview-drive-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 border border-white/10 transition-colors" title="Open Google Drive Stream">
+                  Drive Stream
+                </button>
+                <a href="https://drive.google.com/file/d/1E59n1klcnsbxOVnRdHDBUZ0ytYzW2hh5/preview" 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                   title="Open in new tab">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Video Player Container -->
+            <div class="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-black overflow-hidden flex items-center justify-center">
+              <video 
+                class="portfolio-video w-full h-full object-cover bg-black"
+                src="assets/videos/video5.mp4"
+                preload="metadata"
+                playsinline
+                muted
+                loop>
+              </video>
+
+              <div class="play-indicator opacity-0 transition-opacity duration-300 absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full frosted-glass border border-white/15 pointer-events-none">
+                <div class="flex items-end gap-1 h-3.5">
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-1"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-2"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-3"></span>
+                </div>
+                <span class="text-[11px] font-semibold tracking-wide text-white">PLAYING</span>
+              </div>
+
+              <div class="idle-hint transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center bg-black/30 group-hover:opacity-0 pointer-events-none">
+                <div class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl transform group-hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <span class="mt-2 text-xs font-medium text-neutral-300 sm:hidden">Tap or Scroll to Play</span>
+                <span class="mt-2 text-xs font-medium text-neutral-400 hidden sm:block">Hover to Preview</span>
+              </div>
+
+              <button type="button" class="mute-btn absolute bottom-4 right-4 z-20 p-2.5 rounded-full frosted-glass border border-white/20 text-white hover:bg-white/20 transition-all shadow-lg" title="Toggle Audio">
+                <svg class="audio-muted-icon w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+                <svg class="audio-on-icon w-4 h-4 text-emerald-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card Info -->
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Drone Flight</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Sky Clean</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">High-End</span>
+                </div>
+                <h3 class="text-lg font-semibold text-white group-hover:text-neutral-200 transition-colors">
+                  Real Estate Showcase #05 — Villa Exterior & Architecture
+                </h3>
+                <p class="text-sm text-neutral-400 mt-2 leading-relaxed">
+                  High dynamic range color rendering, architectural perspective alignment, and fluid drone motion control for luxury estates.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-neutral-400">
+                <span class="flex items-center gap-1.5 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Instant 60fps Playback
+                </span>
+                <span class="text-neutral-300">Drone Grading & Stabilization</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- VIDEO ITEM 6 -->
+          <article class="portfolio-card group rounded-3xl bg-neutral-950 border border-white/10 hover:border-white/30 overflow-hidden transition-all duration-300 shadow-2xl flex flex-col cursor-pointer"
+                   data-title="Commercial Showcase #06 — Client Story & Film Look"
+                   data-drive-url="https://drive.google.com/file/d/17sIFmH_2ig9JSae-qc73fNZtlQEjLjvW/preview">
+            
+            <!-- Window Bar -->
+            <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/40">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                <span class="text-xs font-semibold text-neutral-200 tracking-wide ml-2">Showcase #06 — Client Commercial Cut</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" class="preview-drive-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 border border-white/10 transition-colors" title="Open Google Drive Stream">
+                  Drive Stream
+                </button>
+                <a href="https://drive.google.com/file/d/17sIFmH_2ig9JSae-qc73fNZtlQEjLjvW/preview" 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                   title="Open in new tab">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Video Player Container -->
+            <div class="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-black overflow-hidden flex items-center justify-center">
+              <video 
+                class="portfolio-video w-full h-full object-cover bg-black"
+                src="assets/videos/video6.mp4"
+                preload="metadata"
+                playsinline
+                muted
+                loop>
+              </video>
+
+              <div class="play-indicator opacity-0 transition-opacity duration-300 absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full frosted-glass border border-white/15 pointer-events-none">
+                <div class="flex items-end gap-1 h-3.5">
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-1"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-2"></span>
+                  <span class="w-1 bg-emerald-400 rounded-full eq-bar-3"></span>
+                </div>
+                <span class="text-[11px] font-semibold tracking-wide text-white">PLAYING</span>
+              </div>
+
+              <div class="idle-hint transition-opacity duration-300 absolute inset-0 flex flex-col items-center justify-center bg-black/30 group-hover:opacity-0 pointer-events-none">
+                <div class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl transform group-hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <span class="mt-2 text-xs font-medium text-neutral-300 sm:hidden">Tap or Scroll to Play</span>
+                <span class="mt-2 text-xs font-medium text-neutral-400 hidden sm:block">Hover to Preview</span>
+              </div>
+
+              <button type="button" class="mute-btn absolute bottom-4 right-4 z-20 p-2.5 rounded-full frosted-glass border border-white/20 text-white hover:bg-white/20 transition-all shadow-lg" title="Toggle Audio">
+                <svg class="audio-muted-icon w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+                <svg class="audio-on-icon w-4 h-4 text-emerald-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card Info -->
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Film Emulation</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Halation Bloom</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-neutral-900 border border-white/10 text-neutral-300">Brand Film</span>
+                </div>
+                <h3 class="text-lg font-semibold text-white group-hover:text-neutral-200 transition-colors">
+                  Commercial Showcase #06 — Cinema Color & Sound Polish
+                </h3>
+                <p class="text-sm text-neutral-400 mt-2 leading-relaxed">
+                  Kodak 2383 print emulation, custom node trees, organic halation bloom, and micro-contrast adjustment inside DaVinci Resolve.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-neutral-400">
+                <span class="flex items-center gap-1.5 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Instant 60fps Playback
+                </span>
+                <span class="text-neutral-300">DCI-P3 & Rec.709 Master</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- THE DAVINCI RESOLVE ADVANTAGE (APPLE BENTO GRID) -->
+    <section class="py-20 border-t border-white/10 bg-neutral-950/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Post-Production Craft</span>
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-2">
+            Engineered exclusively on DaVinci Resolve Studio
+          </h2>
+          <p class="text-neutral-400 mt-3 text-base">
+            No bloated plug-ins, no color degradation. A pristine 32-bit floating point color pipeline from camera RAW to final master.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Bento 1 -->
+          <div class="p-8 rounded-3xl frosted-glass border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6">
+                <svg class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Color Page Mastery</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Node-based grading with ACES and DaVinci YRGB Color Managed pipelines. Consistent skin tones, high dynamic range roll-off, and film print emulation.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 text-xs text-neutral-400">
+              Sony S-Log3, RED RAW, Blackmagic RAW, Apple Log
+            </div>
+          </div>
+
+          <!-- Bento 2 -->
+          <div class="p-8 rounded-3xl frosted-glass border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6">
+                <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Editorial Precision & Pacing</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Rhythm-driven edits that grip viewer attention within the first 3 seconds and maintain viewer velocity through psychological pacing cuts.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 text-xs text-neutral-400">
+              Commercial Hooks & Viral Retention Curves
+            </div>
+          </div>
+
+          <!-- Bento 3 -->
+          <div class="p-8 rounded-3xl frosted-glass border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6">
+                <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Fairlight Audio Mastering</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Studio-grade vocal clarity, dialogue de-noise, immersive directional sound design, and loudness compliance (-14 LUFS for streaming).
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 text-xs text-neutral-400">
+              Stereo & Social Standard Broadcast Levels
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DIRECT CONTACT STRIP (EMAIL & WHATSAPP) -->
+    <section class="py-20 relative overflow-hidden">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="rounded-3xl border border-white/15 bg-gradient-to-b from-neutral-900/80 to-black p-8 sm:p-14 text-center relative overflow-hidden shadow-2xl">
+          
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-40 bg-white/5 blur-3xl pointer-events-none"></div>
+
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-neutral-400 bg-white/5 border border-white/10 mb-4">
+            Direct Commission Channels
+          </span>
+          
+          <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight max-w-2xl mx-auto leading-tight">
+            Have a project in mind? Let’s bring it to life.
+          </h2>
+          
+          <p class="text-neutral-400 text-base sm:text-lg mt-4 max-w-xl mx-auto">
+            Ready to scale your content quality with cinema-grade editing? Reach out directly via WhatsApp for immediate chat or send project files via email.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/923476415127" 
+               target="_blank" rel="noopener noreferrer"
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-200 shadow-lg shadow-emerald-950/50 hover:scale-[1.02]">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+              </svg>
+              <span>Chat on WhatsApp (+92 347 6415127)</span>
+            </a>
+
+            <!-- Email Direct Button -->
+            <a href="mailto:iahmedwaseem7@gmail.com" 
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-semibold text-white bg-neutral-900 border border-white/15 hover:bg-neutral-800 transition-all duration-200 hover:scale-[1.02]">
+              <svg class="w-5 h-5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <span>iahmedwaseem7@gmail.com</span>
+            </a>
+
+          </div>
+
+          <div class="mt-8 flex items-center justify-center gap-6 text-xs text-neutral-400">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Direct Video Editor Response
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              NDAs & Confidentiality Respected
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- APPLE-INSPIRED MINIMALIST FOOTER -->
+  <footer class="border-t border-white/10 bg-black py-12 text-xs text-neutral-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-full bg-neutral-900 border border-white/20 flex items-center justify-center font-bold text-xs text-white">
+            AA
+          </div>
+          <div>
+            <span class="font-semibold text-white">Ahmed Ali</span> — Professional DaVinci Resolve Video Editor & Colorist
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 text-neutral-400">
+          <a href="index.html" class="hover:text-white transition-colors">Portfolio</a>
+          <a href="services.html" class="hover:text-white transition-colors">Services</a>
+          <a href="contact.html" class="hover:text-white transition-colors">Inquiries</a>
+          <a href="https://wa.me/923476415127" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 transition-colors">WhatsApp</a>
+          <a href="mailto:iahmedwaseem7@gmail.com" class="hover:text-white transition-colors">Email</a>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-400">
+        <p>© 2026 Ahmed Ali. All rights reserved. Crafted with minimalist precision.</p>
+        <p>DaVinci Resolve Studio 19 • ACES Color • Fairlight Audio</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE PLAYBACK SCRIPT (DESKTOP HOVER & MOBILE TOUCH SCROLL) -->
+  <script>
+    // Mobile navigation toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Google Drive Preview Modal
+    const driveModal = document.getElementById('driveModal');
+    const modalIframe = document.getElementById('modalIframe');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalExternalLink = document.getElementById('modalExternalLink');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    function openDriveModal(url, title) {
+      if (!driveModal || !modalIframe) return;
+      modalIframe.src = url;
+      if (modalTitle) modalTitle.textContent = title || "Google Drive Video Preview";
+      if (modalExternalLink) modalExternalLink.href = url;
+      driveModal.classList.remove('hidden');
+      driveModal.classList.add('flex');
+      // Pause all local videos
+      document.querySelectorAll('video').forEach(v => v.pause());
+    }
+
+    function closeDriveModal() {
+      if (!driveModal || !modalIframe) return;
+      modalIframe.src = '';
+      driveModal.classList.add('hidden');
+      driveModal.classList.remove('flex');
+    }
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeDriveModal);
+    if (driveModal) {
+      driveModal.addEventListener('click', (e) => {
+        if (e.target === driveModal) closeDriveModal();
+      });
+    }
+
+    // Attach Drive modal preview buttons
+    document.querySelectorAll('.preview-drive-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.portfolio-card');
+        const url = card.getAttribute('data-drive-url');
+        const title = card.getAttribute('data-title');
+        openDriveModal(url, title);
+      });
+    });
+
+    // Smart Video Card Hover (Desktop) & Touch/Scroll Playback (Mobile)
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.innerWidth < 768;
+    const cards = document.querySelectorAll('.portfolio-card');
+
+    cards.forEach(card => {
+      const video = card.querySelector('video');
+      const indicator = card.querySelector('.play-indicator');
+      const idleHint = card.querySelector('.idle-hint');
+      const muteBtn = card.querySelector('.mute-btn');
+      const audioMutedIcon = card.querySelector('.audio-muted-icon');
+      const audioOnIcon = card.querySelector('.audio-on-icon');
+
+      if (!video) return;
+
+      // Desktop Mouse Hover Playback
+      if (!isTouch) {
+        card.addEventListener('mouseenter', () => {
+          video.play().then(() => {
+            if (indicator) indicator.classList.remove('opacity-0');
+            if (idleHint) idleHint.classList.add('opacity-0');
+          }).catch(() => {});
+        });
+
+        card.addEventListener('mouseleave', () => {
+          video.pause();
+          if (indicator) indicator.classList.add('opacity-0');
+          if (idleHint) idleHint.classList.remove('opacity-0');
+        });
+      }
+
+      // Tap / Click Handler (Works for Mobile and Desktop click)
+      card.addEventListener('click', (e) => {
+        // Ignore clicks on buttons/links
+        if (e.target.closest('button') || e.target.closest('a')) return;
+
+        if (video.paused) {
+          // Pause other videos to maintain smooth performance
+          document.querySelectorAll('.portfolio-card video').forEach(v => {
+            if (v !== video) {
+              v.pause();
+              const otherCard = v.closest('.portfolio-card');
+              const ind = otherCard?.querySelector('.play-indicator');
+              const hnt = otherCard?.querySelector('.idle-hint');
+              if (ind) ind.classList.add('opacity-0');
+              if (hnt) hnt.classList.remove('opacity-0');
+            }
+          });
+
+          video.play().then(() => {
+            if (indicator) indicator.classList.remove('opacity-0');
+            if (idleHint) idleHint.classList.add('opacity-0');
+          }).catch(() => {});
+        } else {
+          video.pause();
+          if (indicator) indicator.classList.add('opacity-0');
+          if (idleHint) idleHint.classList.remove('opacity-0');
+        }
+      });
+
+      // Mute / Unmute Toggle
+      if (muteBtn) {
+        muteBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          video.muted = !video.muted;
+          if (video.muted) {
+            audioMutedIcon?.classList.remove('hidden');
+            audioOnIcon?.classList.add('hidden');
+          } else {
+            audioMutedIcon?.classList.add('hidden');
+            audioOnIcon?.classList.remove('hidden');
+            // Ensure video is playing when unmuted
+            if (video.paused) {
+              video.play().catch(() => {});
+              if (indicator) indicator.classList.remove('opacity-0');
+              if (idleHint) idleHint.classList.add('opacity-0');
+            }
+          }
+        });
+      }
+    });
+
+    // Mobile IntersectionObserver: Auto-play the video centered on screen
+    if (isTouch) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target.querySelector('video');
+          const indicator = entry.target.querySelector('.play-indicator');
+          const idleHint = entry.target.querySelector('.idle-hint');
+          if (!video) return;
+
+          if (entry.isIntersecting) {
+            // Auto-play the active item in view
+            document.querySelectorAll('.portfolio-card video').forEach(v => {
+              if (v !== video) {
+                v.pause();
+                const otherCard = v.closest('.portfolio-card');
+                const ind = otherCard?.querySelector('.play-indicator');
+                const hnt = otherCard?.querySelector('.idle-hint');
+                if (ind) ind.classList.add('opacity-0');
+                if (hnt) hnt.classList.remove('opacity-0');
+              }
+            });
+
+            video.play().then(() => {
+              if (indicator) indicator.classList.remove('opacity-0');
+              if (idleHint) idleHint.classList.add('opacity-0');
+            }).catch(() => {});
+          } else {
+            video.pause();
+            if (indicator) indicator.classList.add('opacity-0');
+            if (idleHint) idleHint.classList.remove('opacity-0');
+          }
+        });
+      }, {
+        threshold: 0.55 // 55% of the video card in viewport
+      });
+
+      cards.forEach(card => observer.observe(card));
+    }
+  </script>
+
+</body>
+</html>
